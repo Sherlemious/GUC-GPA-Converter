@@ -20,4 +20,5 @@ The script uses a dictionary of grade ranges and their corresponding percentage 
 ## Example
 
 Enter your GUC GPA: 1.3
+
 Your GPA is: 3.6
