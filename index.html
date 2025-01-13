@@ -1,94 +1,224 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <!-- Google tag (gtag.js) -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPA Converter by Sherlemious</title>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-B2JQ6834H8"></script>
     <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-B2JQ6834H8');
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-B2JQ6834H8');
     </script>
-    <title>GPA Converter by Sherlemious</title>
     <style>
-        /* Style for the container */
+        :root {
+            --primary-color: #4CAF50;
+            --bg-color: #1a1a1a;
+            --card-bg: #2d2d2d;
+            --text-color: #ffffff;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
         .container {
-            margin: 0 auto;
+            flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 75vh;
+            padding: 2rem;
         }
-        /* Style for the text box */
-        .textbox {
-            padding: 10px;
-            font-size: 24px;
-            border-radius: 10px;
-            border: 2px solid #ccc;
-            text-align: center;
-            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
-            outline: none;
-            transition: box-shadow 0.3s ease-in-out;
-            width: 80%;
-            max-width: 500px;
-            overflow: hidden;
-        }
-        .textbox:focus {
-            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        /* Style for the button */
-        .button {
-        padding: 10px 20px;
-        background-color: #4CAF50;
-        color: white;
-        font-size: 20px;
-        border-radius: 5px;
-        border: none;
-        width: 85%;
-        cursor: pointer;
-        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease-in-out;
-    }
 
-    .button:hover {
-        background-color: #3e8e41;
-    }
-        /* Style for the result */
-        .result {
-            font-size: 24px;
-            margin-top: 20px;
+        .converter-card {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 1.5rem;
+            width: 100%;
+            max-width: 480px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .converter-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
             text-align: center;
+            color: var(--text-color);
         }
-        /* Style for the link */
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .textbox {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.125rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.75rem;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .textbox:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .button {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.125rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .button:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+
+        .result {
+            margin-top: 1.5rem;
+            text-align: center;
+            font-size: 1.25rem;
+            min-height: 2rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--card-bg);
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .copyright {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
         .link {
-            font-size: 22px;
-            color: #666;
+            color: rgba(255, 255, 255, 0.6);
             text-decoration: none;
-            transition: color 0.3s ease-in-out;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
         }
+
         .link:hover {
-            color: #4CAF50;
+            color: var(--primary-color);
+        }
+
+        .link::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background: var(--primary-color);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .link:hover::after {
+            transform: scaleX(1);
+        }
+
+        @media (max-width: 640px) {
+            .converter-card {
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+
+            .title {
+                font-size: 1.5rem;
+            }
+
+            .textbox,
+            .button {
+                font-size: 1rem;
+                padding: 0.875rem;
+            }
+
+            .result {
+                font-size: 1.125rem;
+            }
+
+            .social-links {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <div class="textbox-container">
-            <input class="textbox" type="number" step="0.01" min="0.7" max="6" placeholder="Enter your GUC GPA..." id="guc-gpa">
-            <button class="button" type="submit" onclick="convertGPA()">Convert to American GPA </button>
+        <div class="converter-card">
+            <h1 class="title">GUC GPA Converter</h1>
+            <div class="input-group">
+                <input class="textbox" type="number" step="0.01" min="0.7" max="6" placeholder="Enter your GUC GPA..."
+                    id="guc-gpa">
+            </div>
+            <button class="button" type="submit" onclick="convertGPA()">
+                Convert to American GPA
+            </button>
+            <div class="result">
+                <p id="result"></p>
+            </div>
         </div>
-        <div class="result">
-        <p id="result"></p>
     </div>
-    </div>
-    
-    <footer style="text-align:center;margin-top:50px;">
-        <p style="font-size:145%;">&copy; Made by Sherlemious</p>
-        <a class="link" href="https://github.com/Sherlemious/GUC-GPA-Converter" target="_blank">Github Repo</a> | 
-        <a class="link" href="https://www.linkedin.com/in/sherlemious/" target="_blank">LinkedIn</a> | 
-        <a class="link" href="https://github.com/sherlemious" target="_blank">GitHub</a>
+
+    <footer>
+        <div class="footer-content">
+            <p class="copyright">&copy; Made by Sherlemious</p>
+            <div class="social-links">
+                <a class="link" href="https://github.com/Sherlemious/GUC-GPA-Converter" target="_blank">Github Repo</a>
+                <a class="link" href="https://www.linkedin.com/in/sherlemious/" target="_blank">LinkedIn</a>
+                <a class="link" href="https://github.com/sherlemious" target="_blank">GitHub</a>
+            </div>
+        </div>
     </footer>
     <script src="index.js"></script>
 </body>
+
 </html>
