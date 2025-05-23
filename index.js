@@ -28,6 +28,9 @@ function getGPA(percent) {
 }
 
 function calcGPA(gpa) {
+  if (isNaN(gpa) || gpa === '') {
+    return 'Please enter a valid GPA';
+  }
   if (gpa < 0.7 || gpa > 6.0) {
     return 'Invalid GPA';
   }
@@ -41,3 +44,15 @@ function convertGPA() {
   const result = document.getElementById('result');
   result.innerHTML = calcGPA(gucGPA);
 }
+
+// Add event listener for Enter key
+document.addEventListener('DOMContentLoaded', function () {
+  const gpaInput = document.getElementById('guc-gpa');
+  if (gpaInput) {
+    gpaInput.addEventListener('keypress', function (event) {
+      if (event.key === 'Enter') {
+        convertGPA();
+      }
+    });
+  }
+});
