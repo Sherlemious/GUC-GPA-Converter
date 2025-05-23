@@ -45,6 +45,22 @@ function convertGPA() {
   result.innerHTML = calcGPA(gucGPA);
 }
 
+function incrementGPA() {
+  const gpaInput = document.getElementById('guc-gpa');
+  const currentValue = parseFloat(gpaInput.value) || 0.7;
+  const newValue = Math.min(currentValue + 0.01, 6.0);
+  gpaInput.value = newValue.toFixed(2);
+  convertGPA();
+}
+
+function decrementGPA() {
+  const gpaInput = document.getElementById('guc-gpa');
+  const currentValue = parseFloat(gpaInput.value) || 0.7;
+  const newValue = Math.max(currentValue - 0.01, 0.7);
+  gpaInput.value = newValue.toFixed(2);
+  convertGPA();
+}
+
 // Add event listener for Enter key
 document.addEventListener('DOMContentLoaded', function () {
   const gpaInput = document.getElementById('guc-gpa');
