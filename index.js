@@ -61,6 +61,28 @@ function decrementGPA() {
   convertGPA();
 }
 
+// Variables for continuous increment/decrement
+let incrementInterval;
+let decrementInterval;
+
+function startIncrement() {
+  incrementGPA(); // Execute immediately
+  incrementInterval = setInterval(incrementGPA, 100); // Then repeat every 100ms
+}
+
+function stopIncrement() {
+  clearInterval(incrementInterval);
+}
+
+function startDecrement() {
+  decrementGPA(); // Execute immediately
+  decrementInterval = setInterval(decrementGPA, 100); // Then repeat every 100ms
+}
+
+function stopDecrement() {
+  clearInterval(decrementInterval);
+}
+
 // Add event listener for Enter key
 document.addEventListener('DOMContentLoaded', function () {
   const gpaInput = document.getElementById('guc-gpa');
