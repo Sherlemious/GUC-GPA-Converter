@@ -67,6 +67,8 @@
             --card-bg: #2d2d2d;
             --text-color: #ffffff;
             --shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --hover-bg: rgba(255, 255, 255, 0.05);
         }
 
         * {
@@ -92,18 +94,68 @@
             padding: 2rem;
         }
 
-        .converter-card {
+        .main-card {
             background: var(--card-bg);
-            padding: 2.5rem;
             border-radius: 1.5rem;
             width: 100%;
-            max-width: 480px;
+            max-width: 600px;
             box-shadow: var(--shadow);
             transition: transform 0.3s ease;
+            overflow: hidden;
         }
 
-        .converter-card:hover {
+        .main-card:hover {
             transform: translateY(-4px);
+        }
+
+        /* Tab Navigation */
+        .tab-nav {
+            display: flex;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 1.5rem 1.5rem 0 0;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 1.25rem 2rem;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tab-button.active {
+            color: var(--primary-color);
+            background: var(--card-bg);
+        }
+
+        .tab-button:not(.active):hover {
+            color: rgba(255, 255, 255, 0.8);
+            background: var(--hover-bg);
+        }
+
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary-color);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            padding: 2.5rem;
+        }
+
+        .tab-content.active {
+            display: block;
         }
 
         .title {
@@ -116,6 +168,7 @@
 
         .input-group {
             margin-bottom: 1.5rem;
+            position: relative;
         }
 
         .textbox {
@@ -123,7 +176,7 @@
             padding: 1rem;
             font-size: 1.125rem;
             background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255, 255, 255, 0.1);
+            border: 2px solid var(--border-color);
             border-radius: 0.75rem;
             color: var(--text-color);
             transition: all 0.3s ease;
@@ -149,10 +202,6 @@
         }
 
         /* Custom spinner buttons */
-        .input-group {
-            position: relative;
-        }
-
         .spinner-buttons {
             position: absolute;
             right: 8px;
@@ -210,6 +259,79 @@
             text-align: center;
             font-size: 1.25rem;
             min-height: 2rem;
+            padding: 1rem;
+            background: rgba(76, 175, 80, 0.1);
+            border-radius: 0.75rem;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+
+        /* Table Styles */
+        .table-container {
+            overflow-x: auto;
+            border-radius: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .conversion-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        .conversion-table th,
+        .conversion-table td {
+            padding: 1rem 0.75rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .conversion-table th {
+            background: rgba(76, 175, 80, 0.1);
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .conversion-table tr:hover {
+            background: var(--hover-bg);
+        }
+
+        .conversion-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .grade-excellent {
+            color: #4CAF50;
+        }
+
+        .grade-good {
+            color: #8BC34A;
+        }
+
+        .grade-average {
+            color: #FFC107;
+        }
+
+        .grade-below {
+            color: #FF9800;
+        }
+
+        .grade-poor {
+            color: #F44336;
+        }
+
+        .table-description {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 0.75rem;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .table-description h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
         }
 
         footer {
@@ -222,12 +344,6 @@
         .footer-content {
             max-width: 600px;
             margin: 0 auto;
-        }
-
-        .copyright {
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-            color: rgba(255, 255, 255, 0.8);
         }
 
         .social-links {
@@ -264,29 +380,162 @@
             transform: scaleX(1);
         }
 
-        @media (max-width: 640px) {
-            .converter-card {
-                padding: 1.5rem;
-                margin: 1rem;
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .main-card {
+                margin: 0;
+                max-width: 100%;
+                border-radius: 1rem;
+            }
+
+            .tab-button {
+                padding: 0.75rem 1rem;
+                font-size: 0.85rem;
+                font-weight: 500;
+            }
+
+            .tab-content {
+                padding: 1.5rem 1rem;
             }
 
             .title {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
+                margin-bottom: 1.5rem;
             }
 
-            .textbox,
+            .textbox {
+                font-size: 1rem;
+                padding: 0.875rem;
+                padding-right: 2.5rem;
+            }
+
             .button {
                 font-size: 1rem;
                 padding: 0.875rem;
             }
 
             .result {
-                font-size: 1.125rem;
+                font-size: 1rem;
+                padding: 0.875rem;
+                margin-top: 1rem;
+                line-height: 1.4;
+            }
+
+            .spinner-buttons {
+                right: 6px;
+            }
+
+            .spinner-btn {
+                width: 20px;
+                height: 16px;
+                font-size: 8px;
+            }
+
+            .table-description {
+                margin-bottom: 1rem;
+                padding: 0.875rem;
+                font-size: 0.9rem;
+            }
+
+            .table-description h3 {
+                font-size: 1.1rem;
+            }
+
+            .conversion-table {
+                font-size: 0.75rem;
+            }
+
+            .conversion-table th,
+            .conversion-table td {
+                padding: 0.5rem 0.25rem;
+            }
+
+            .conversion-table th:last-child,
+            .conversion-table td:last-child {
+                display: none;
+                /* Hide description column on mobile */
             }
 
             .social-links {
                 flex-direction: column;
                 gap: 0.75rem;
+            }
+
+            .link {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0.5rem;
+            }
+
+            .main-card {
+                border-radius: 0.75rem;
+            }
+
+            .tab-button {
+                padding: 0.625rem 0.75rem;
+                font-size: 0.8rem;
+            }
+
+            .tab-content {
+                padding: 1.25rem 0.875rem;
+            }
+
+            .title {
+                font-size: 1.25rem;
+                margin-bottom: 1.25rem;
+            }
+
+            .textbox,
+            .button {
+                font-size: 0.95rem;
+                padding: 0.75rem;
+            }
+
+            .textbox {
+                padding-right: 2.25rem;
+            }
+
+            .result {
+                font-size: 0.95rem;
+                padding: 0.75rem;
+                word-wrap: break-word;
+            }
+
+            .table-description {
+                padding: 0.75rem;
+                font-size: 0.85rem;
+            }
+
+            .table-description h3 {
+                font-size: 1rem;
+            }
+
+            .conversion-table {
+                font-size: 0.7rem;
+            }
+
+            .conversion-table th,
+            .conversion-table td {
+                padding: 0.4rem 0.2rem;
+                line-height: 1.2;
+            }
+
+            /* Stack table headers and hide some columns on very small screens */
+            .conversion-table th:nth-child(3),
+            .conversion-table td:nth-child(3) {
+                display: none;
+                /* Hide Definition column */
+            }
+
+            footer {
+                padding: 1.5rem 1rem;
             }
         }
     </style>
@@ -294,25 +543,150 @@
 
 <body>
     <div class="container">
-        <div class="converter-card">
-            <h1 class="title">GUC GPA Converter</h1>
-            <div class="input-group">
-                <input class="textbox" type="number" step="0.01" min="0.7" max="6" placeholder="Enter your GUC GPA..."
-                    id="guc-gpa">
-                <div class="spinner-buttons">
-                    <button type="button" class="spinner-btn" onmousedown="startIncrement()" onmouseup="stopIncrement()"
-                        onmouseleave="stopIncrement()" ontouchstart="startIncrement()"
-                        ontouchend="stopIncrement()">▲</button>
-                    <button type="button" class="spinner-btn" onmousedown="startDecrement()" onmouseup="stopDecrement()"
-                        onmouseleave="stopDecrement()" ontouchstart="startDecrement()"
-                        ontouchend="stopDecrement()">▼</button>
+        <div class="main-card">
+            <!-- Tab Navigation -->
+            <div class="tab-nav">
+                <button class="tab-button active" onclick="switchTab('converter')">
+                    GPA Converter
+                </button>
+                <button class="tab-button" onclick="switchTab('guide')">
+                    Conversion Guide
+                </button>
+            </div>
+
+            <!-- Converter Tab -->
+            <div id="converter-tab" class="tab-content active">
+                <h1 class="title">GUC GPA Converter</h1>
+                <div class="input-group">
+                    <input class="textbox" type="number" step="0.01" min="0.7" max="6"
+                        placeholder="Enter your GUC GPA..." id="guc-gpa">
+                    <div class="spinner-buttons">
+                        <button type="button" class="spinner-btn" onmousedown="startIncrement()"
+                            onmouseup="stopIncrement()" onmouseleave="stopIncrement()" ontouchstart="startIncrement()"
+                            ontouchend="stopIncrement()">▲</button>
+                        <button type="button" class="spinner-btn" onmousedown="startDecrement()"
+                            onmouseup="stopDecrement()" onmouseleave="stopDecrement()" ontouchstart="startDecrement()"
+                            ontouchend="stopDecrement()">▼</button>
+                    </div>
+                </div>
+                <button class="button" type="submit" onclick="convertGPA()">
+                    Convert to American GPA
+                </button>
+                <div class="result">
+                    <p id="result">Enter your GUC GPA to see the conversion</p>
                 </div>
             </div>
-            <button class="button" type="submit" onclick="convertGPA()">
-                Convert to American GPA
-            </button>
-            <div class="result">
-                <p id="result"></p>
+
+            <!-- Guide Tab -->
+            <div id="guide-tab" class="tab-content">
+                <h1 class="title">GPA Conversion Guide</h1>
+
+                <div class="table-description">
+                    <h3>Official GUC Grade Conversion</h3>
+                    <p>This table shows the official GUC grade definitions and their conversion to American GPA scale.
+                        Note that in the German system, lower numbers indicate better performance (0.7 is the highest
+                        grade, 5.0 is failing).</p>
+                </div>
+
+                <div class="table-container">
+                    <table class="conversion-table">
+                        <thead>
+                            <tr>
+                                <th>GUC Grade</th>
+                                <th>Letter Grade</th>
+                                <th>Definition</th>
+                                <th>American GPA</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>0.7</strong></td>
+                                <td class="grade-excellent"><strong>A+</strong></td>
+                                <td class="grade-excellent">Excellent</td>
+                                <td class="grade-excellent"><strong>4.00</strong></td>
+                                <td class="grade-excellent">Outstanding Performance with minor errors</td>
+                            </tr>
+                            <tr>
+                                <td><strong>1.0</strong></td>
+                                <td class="grade-excellent"><strong>A</strong></td>
+                                <td class="grade-excellent">Excellent</td>
+                                <td class="grade-excellent"><strong>3.80 - 4.00</strong></td>
+                                <td class="grade-excellent">Outstanding Performance with minor errors</td>
+                            </tr>
+                            <tr>
+                                <td><strong>1.3</strong></td>
+                                <td class="grade-excellent"><strong>A-</strong></td>
+                                <td class="grade-excellent">Excellent</td>
+                                <td class="grade-excellent"><strong>3.50 - 3.80</strong></td>
+                                <td class="grade-excellent">Outstanding Performance with minor errors</td>
+                            </tr>
+                            <tr>
+                                <td><strong>1.7</strong></td>
+                                <td class="grade-good"><strong>B+</strong></td>
+                                <td class="grade-good">Very Good</td>
+                                <td class="grade-good"><strong>3.30 - 3.50</strong></td>
+                                <td class="grade-good">Above the average standard but with some errors</td>
+                            </tr>
+                            <tr>
+                                <td><strong>2.0</strong></td>
+                                <td class="grade-good"><strong>B</strong></td>
+                                <td class="grade-good">Very Good</td>
+                                <td class="grade-good"><strong>3.10 - 3.30</strong></td>
+                                <td class="grade-good">Above the average standard but with some errors</td>
+                            </tr>
+                            <tr>
+                                <td><strong>2.3</strong></td>
+                                <td class="grade-good"><strong>B-</strong></td>
+                                <td class="grade-good">Very Good</td>
+                                <td class="grade-good"><strong>2.90 - 3.10</strong></td>
+                                <td class="grade-good">Above the average standard but with some errors</td>
+                            </tr>
+                            <tr>
+                                <td><strong>2.7</strong></td>
+                                <td class="grade-average"><strong>C+</strong></td>
+                                <td class="grade-average">Good</td>
+                                <td class="grade-average"><strong>2.70 - 2.90</strong></td>
+                                <td class="grade-average">Generally sound work with a number of notable errors</td>
+                            </tr>
+                            <tr>
+                                <td><strong>3.0</strong></td>
+                                <td class="grade-average"><strong>C</strong></td>
+                                <td class="grade-average">Good</td>
+                                <td class="grade-average"><strong>2.50 - 2.70</strong></td>
+                                <td class="grade-average">Generally sound work with a number of notable errors</td>
+                            </tr>
+                            <tr>
+                                <td><strong>3.3</strong></td>
+                                <td class="grade-average"><strong>C-</strong></td>
+                                <td class="grade-average">Good</td>
+                                <td class="grade-average"><strong>2.30 - 2.50</strong></td>
+                                <td class="grade-average">Generally sound work with a number of notable errors</td>
+                            </tr>
+                            <tr>
+                                <td><strong>3.7</strong></td>
+                                <td class="grade-below"><strong>D+</strong></td>
+                                <td class="grade-below">Satisfactory</td>
+                                <td class="grade-below"><strong>2.10 - 2.30</strong></td>
+                                <td class="grade-below">Fair performance but with significant shortcomings</td>
+                            </tr>
+                            <tr>
+                                <td><strong>4.0</strong></td>
+                                <td class="grade-below"><strong>D</strong></td>
+                                <td class="grade-below">Satisfactory</td>
+                                <td class="grade-below"><strong>2.00 - 2.10</strong></td>
+                                <td class="grade-below">Fair performance but with significant shortcomings</td>
+                            </tr>
+                            <tr>
+                                <td><strong>5.0</strong></td>
+                                <td class="grade-poor"><strong>F</strong></td>
+                                <td class="grade-poor">Fail</td>
+                                <td class="grade-poor"><strong>0.00 - 2.00</strong></td>
+                                <td class="grade-poor">Considerable further work is required</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -327,7 +701,130 @@
             </div>
         </div>
     </footer>
-    <script src="index.js"></script>
+
+    <script>
+        // Tab switching functionality
+        function switchTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(tab => tab.classList.remove('active'));
+
+            // Remove active class from all tab buttons
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => button.classList.remove('active'));
+
+            // Show selected tab content
+            document.getElementById(tabName + '-tab').classList.add('active');
+
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+
+        // Original GPA conversion functions
+        function calcPercent(grade) {
+            const grades = [
+                [0.7, 0.99, 100, 100],
+                [1.0, 1.29, 95, 100],
+                [1.3, 1.69, 87.5, 95],
+                [1.7, 1.99, 82.5, 87.5],
+                [2.0, 2.29, 77.5, 82.5],
+                [2.3, 2.69, 72.5, 77.5],
+                [2.7, 2.99, 67.5, 72.5],
+                [3.0, 3.29, 62.5, 67.5],
+                [3.3, 3.69, 57.5, 62.5],
+                [3.7, 3.99, 52.5, 57.5],
+                [4.0, 4.99, 50, 52.5],
+                [5.0, 6.0, 0, 50],
+            ];
+
+            for (let i = 0; i < grades.length; i++) {
+                const key = grades[i];
+                if (grade >= key[0] && grade <= key[1]) {
+                    return ((key[1] - grade) * (key[3] - key[2])) / (key[1] - key[0]) + key[2];
+                }
+            }
+            return -1;
+        }
+
+        function getGPA(percent) {
+            return Math.round((percent / 100) * 4 * 100) / 100;
+        }
+
+        function calcGPA(gpa) {
+            if (isNaN(gpa) || gpa === '') {
+                return 'Please enter a valid GPA';
+            }
+            if (gpa < 0.7 || gpa > 6.0) {
+                return 'Invalid GPA range (0.7 - 6.0)';
+            }
+            const percent = calcPercent(gpa);
+            const americanGPA = getGPA(percent);
+            return `Your American GPA is: <strong>${americanGPA}</strong>`;
+        }
+
+        function convertGPA() {
+            const gucGPA = parseFloat(document.getElementById('guc-gpa').value);
+            const result = document.getElementById('result');
+            result.innerHTML = calcGPA(gucGPA);
+        }
+
+        function incrementGPA() {
+            const gpaInput = document.getElementById('guc-gpa');
+            const currentValue = parseFloat(gpaInput.value) || 0.7;
+            const newValue = Math.min(currentValue + 0.01, 6.0);
+            gpaInput.value = newValue.toFixed(2);
+            convertGPA();
+        }
+
+        function decrementGPA() {
+            const gpaInput = document.getElementById('guc-gpa');
+            const currentValue = parseFloat(gpaInput.value) || 0.7;
+            const newValue = Math.max(currentValue - 0.01, 0.7);
+            gpaInput.value = newValue.toFixed(2);
+            convertGPA();
+        }
+
+        // Variables for continuous increment/decrement
+        let incrementInterval;
+        let decrementInterval;
+
+        function startIncrement() {
+            incrementGPA();
+            incrementInterval = setInterval(incrementGPA, 100);
+        }
+
+        function stopIncrement() {
+            clearInterval(incrementInterval);
+        }
+
+        function startDecrement() {
+            decrementGPA();
+            decrementInterval = setInterval(decrementGPA, 100);
+        }
+
+        function stopDecrement() {
+            clearInterval(decrementInterval);
+        }
+
+        // Add event listener for Enter key
+        document.addEventListener('DOMContentLoaded', function () {
+            const gpaInput = document.getElementById('guc-gpa');
+            if (gpaInput) {
+                gpaInput.addEventListener('keypress', function (event) {
+                    if (event.key === 'Enter') {
+                        convertGPA();
+                    }
+                });
+
+                // Auto-convert on input change
+                gpaInput.addEventListener('input', function () {
+                    if (this.value) {
+                        convertGPA();
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
