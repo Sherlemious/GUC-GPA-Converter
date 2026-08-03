@@ -505,14 +505,14 @@
         input[type="range"].scale::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 10px;
+            width: 12px;
             height: 30px;
             background: var(--ink);
-            border: 2px solid var(--panel);
+            border: none;
             border-radius: 2px;
-            box-shadow: 0 0 0 1px var(--ink), 0 3px 8px rgba(33, 29, 22, 0.4);
+            box-shadow: 0 0 0 2px var(--panel), 0 0 0 3px var(--ink), 0 3px 8px rgba(33, 29, 22, 0.4);
             cursor: grab;
-            margin-top: -9px;
+            margin-top: -8px;
         }
 
         input[type="range"].scale::-webkit-slider-thumb:active {
@@ -520,12 +520,12 @@
         }
 
         input[type="range"].scale::-moz-range-thumb {
-            width: 8px;
-            height: 28px;
+            width: 12px;
+            height: 30px;
             background: var(--ink);
-            border: 2px solid var(--panel);
+            border: none;
             border-radius: 2px;
-            box-shadow: 0 0 0 1px var(--ink), 0 3px 8px rgba(33, 29, 22, 0.4);
+            box-shadow: 0 0 0 2px var(--panel), 0 0 0 3px var(--ink), 0 3px 8px rgba(33, 29, 22, 0.4);
             cursor: grab;
         }
 
@@ -1401,7 +1401,9 @@
             const band = bandFor(g);
             const color = TIER_COLOR[band[5]];
             el.readout.style.setProperty('--tier', color);
-            el.slider.value = g;
+            // Only write back when it actually differs, so dragging the slider
+            // itself is never interrupted mid-gesture.
+            if (parseFloat(el.slider.value) !== g) el.slider.value = g;
 
             if (mode === 'guc') {
                 el.cap.textContent = 'American GPA';
@@ -1522,9 +1524,11 @@
                 { g: 2.7, l: 'C+', sm: true }, { g: 3.3, l: 'C-' },
                 { g: 4.0, l: 'D' }, { g: 5.0, l: 'F' },
             ];
+            // Align marks to the thumb's centre travel: it is inset by half the
+            // thumb width (6px) plus the track's 1px border at each end.
             document.getElementById('ticks').innerHTML = marks.map(m => {
-                const pos = ((m.g - G_MIN) / (G_MAX - G_MIN)) * 100;
-                return `<div class="t${m.sm ? ' hide-sm' : ''}" style="left:${pos}%">${m.g.toFixed(1)}<b>${m.l}</b></div>`;
+                const f = (m.g - G_MIN) / (G_MAX - G_MIN);
+                return `<div class="t${m.sm ? ' hide-sm' : ''}" style="left:calc(7px + ${f.toFixed(4)} * (100% - 14px))">${m.g.toFixed(1)}<b>${m.l}</b></div>`;
             }).join('');
         }
 
