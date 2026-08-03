@@ -664,11 +664,12 @@
             background: var(--ink);
             color: var(--paper);
             border-color: var(--ink);
-            display: none;
         }
 
-        .chip.honors.show {
-            display: inline-block;
+        .chip.honors.none {
+            background: transparent;
+            color: var(--ink-faint);
+            border-color: var(--rule);
         }
 
         .readout__desc {
@@ -1126,7 +1127,7 @@
                                 <div class="chips">
                                     <span class="badge" id="result-badge">B+</span>
                                     <span class="chip tier" id="result-class">Very Good</span>
-                                    <span class="chip honors" id="result-honors">Highest Honors</span>
+                                    <span class="chip honors none" id="result-honors">No Honors</span>
                                 </div>
                                 <p class="readout__desc" id="result-desc">Above the average standard, with some errors.
                                 </p>
@@ -1418,8 +1419,8 @@
             el.cls.textContent = classification(g);
 
             const hon = honorsFor(g);
-            if (hon) { el.honors.textContent = hon; el.honors.classList.add('show'); }
-            else { el.honors.classList.remove('show'); }
+            if (hon) { el.honors.textContent = '★ ' + hon; el.honors.classList.remove('none'); }
+            else { el.honors.textContent = 'No Honors'; el.honors.classList.add('none'); }
         }
 
         // Update all mode-dependent labels/limits.
